@@ -4,12 +4,23 @@ namespace App\Helpers;
 
 trait ApiResponse
 {
+    public function authSuccess($data, $token = null, $message = null, $code = 200)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'token' => $token,
+            'message' => $message,
+            'code' => $code
+        ], $code);
+    }
+
     public function success($data, $message = null, $code = 200)
     {
         return response()->json([
             'success' => true,
-            'message' => $message,
             'data' => $data,
+            'message' => $message,
             'code' => $code
         ], $code);
     }
@@ -18,8 +29,8 @@ trait ApiResponse
     {
         return response()->json([
             'status' => false,
-            'message' => $message,
             'data' => $data,
+            'message' => $message,
             'code' => $code
         ], $code);
     }
