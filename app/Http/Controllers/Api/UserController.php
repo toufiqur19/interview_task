@@ -20,6 +20,10 @@ class UserController extends Controller
         //$user = Auth::user();
         $users = User::all();
 
+        if($users->isEmpty()) {
+            return $this->error([], 'No users found', 404);
+        }
+        
         return $this->success(
             $users,
             "All userd fetched successfully",

@@ -39,30 +39,37 @@
                         <div class="mb-3">
                             <label for="first_name" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="first_name">
+                            <span class="text-danger" id="first_name_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="last_name" class="form-label">Last Name</label>
                             <input type="text" class="form-control" id="last_name">
+                            <span class="text-danger" id="last_name_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address">
+                            <span class="text-danger" id="address_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">City</label>
                             <input type="text" class="form-control" id="city">
+                            <span class="text-danger" id="city_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="state" class="form-label">State</label>
                             <input type="text" class="form-control" id="state">
+                            <span class="text-danger" id="state_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="zipcode" class="form-label">Zipcode</label>
                             <input type="text" class="form-control" id="zipcode">
+                            <span class="text-danger" id="zipcode_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="country" class="form-label">Country</label>
                             <input type="text" class="form-control" id="country">
+                            <span class="text-danger" id="country_error"></span>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
@@ -136,6 +143,30 @@
             let country = $('#country').val();
             let password = $('#password').val();
 
+            // form validation
+            if ($('#first_name').val() == '') {
+                $('#first_name_error').text('First name is required');
+                return;
+            } else if ($('#last_name').val() == '') {
+                $('#last_name_error').text('Last name is required');
+                return;
+            } else if ($('#address').val() == '') {
+                $('#address_error').text('Address is required');
+                return;
+            } else if ($('#city').val() == '') {
+                $('#city_error').text('City is required');
+                return;
+            } else if ($('#state').val() == '') {
+                $('#state_error').text('State is required');
+                return;
+            } else if ($('#zipcode').val() == '') {
+                $('#zipcode_error').text('Zipcode is required');
+                return;
+            } else if ($('#country').val() == '') {
+                $('#country_error').text('Country is required');
+                return;
+            }
+
             $.ajax({
                 url: '/api/user/update/' + id,
                 method: 'POST',
@@ -159,6 +190,7 @@
 
         $(document).on('click', '.deleteUser', function() {
             let id = $(this).data('id');
+            let row = $(this).closest('tr');
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -169,14 +201,14 @@
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                $.ajax({
-                    url: '/api/user/delete/' + id,
-                    method: 'DELETE',
-                    success: function(response) {
-                        fetchUsers();
-                        successToast(response.message);
-                    }
-                });
+                    $.ajax({
+                        url: '/api/user/delete/' + id,
+                        method: 'DELETE',
+                        success: function(response) {
+                            row.remove();
+                            successToast(response.message);
+                        }
+                    });
                 }
             });
         })

@@ -13,3 +13,4 @@ Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::get('/register', [UserController::class, 'register'])->name('register');
 
 Route::get('/users', [UserController::class, 'users'])->name('users');
+
