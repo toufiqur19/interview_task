@@ -63,7 +63,7 @@ class UserController extends Controller
             'state' => 'required|string|max:255',
             'zipcode' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'password' => 'required|min:8',
+            'password' => 'nullable|min:8',
         ]);  
 
         if ($validated->fails()) {
@@ -112,10 +112,6 @@ class UserController extends Controller
     {
         try {
             $user = User::find($user_id);
-
-            if (!$user) {
-                return $this->error([], 'User not found', 404);
-            }
 
             $user->delete();
 
