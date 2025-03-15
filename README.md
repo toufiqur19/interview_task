@@ -24,3 +24,9 @@ This is a simple REST API built using Laravel. The API includes user registratio
 - Run migrations and seeders `php artisan migrate --seed`
 - Run the Application `php artisan serve`
 - Start the development server php artisan serve Access the application at http://localhost:8000.
+
+## Integration with Frontend
+- Laravel Blade Template
+- Bootstrap 5
+- jQuery
+- Ajax
